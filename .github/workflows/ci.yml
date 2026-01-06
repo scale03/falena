@@ -1,0 +1,49 @@
+name: Falena CI
+
+# Trigger the workflow on push or pull request events targeting the main branch.
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    name: Build & Verify
+    # Ubuntu 22.04 is required to provide a modern Linux kernel and eBPF toolchain.
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup Go Environment
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.22'
+
+    # Install system dependencies required for eBPF compilation.
+    # - clang/llvm: Required to compile C code into BPF bytecode.
+    # - libbpf-dev: Provides necessary kernel headers and BPF helpers.
+    # - gcc-multilib: Support for cross-architecture headers.
+    - name: Install eBPF Toolchain
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y clang llvm libbpf-dev gcc-multilib
+
+    - name: Download Go Modules
+      run: go mod download
+
+    # Generate eBPF bytecode and Go bindings using bpf2go.
+    # NOTE: This step is critical because generated artifacts (*_bpf*.go, *.o)
+    # are git-ignored and must be rebuilt in the CI environment.
+    - name: Generate eBPF Artifacts
+      run: go generate ./...
+
+    - name: Build Falena Binary
+      # Compiles the userspace agent to ensure no build errors exist.
+      run: go build -v ./cmd/falena
+
+    - name: Run Unit Tests
+      # Executes standard Go tests to verify logic correctness.
+      run: go test -v ./...

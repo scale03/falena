@@ -1,0 +1,11 @@
+# Binaries
+bin/
+dist/
+
+# eBPF Generated Artifacts
+internal/ebpf/*_bpf*.go
+internal/ebpf/*_bpf*.o
+
+# Go
+vendor/
+go.sum
