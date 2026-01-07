@@ -6,4 +6,4 @@
 
 **File Access Telemetry for Kubernetes via eBPF**
 
-Falena is a next-generation observability agent built for high-density Kubernetes environments. It leverages **eBPF (Extended Berkeley Packet Filter)** and **CO-RE (Compile Once, Run Everywhere)** principles to extract high-fidelity File Access telemetry directly from the Linux kernel.
+Falena is a next-generation observability agent built for high-density Kubernetes environments. It leverages **eBPF (Extended Berkeley Packet Filter)** and **CO-RE (Compile Once, Run Everywhere)** principles to extract high-fidelity File Access telemetry directly from the Linux kernel nad near zero overhead.
