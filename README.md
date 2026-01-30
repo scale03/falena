@@ -1,6 +1,6 @@
 #  Falena🦋
 
-[![CI](https://github.com/scale03/falena/actions/workflows/ci.yml/badge.svg)](https://github.com/scale03/falena/actions)
+[![Build](https://github.com/scale03/falena/actions/workflows/ci.yml/badge.svg)](https://github.com/scale03/falena/actions)
 [![Go Report Card](https://goreportcard.com/badge/github.com/scale03/falena)](https://goreportcard.com/report/github.com/scale03/falena)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
